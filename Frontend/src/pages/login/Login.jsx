@@ -1,5 +1,6 @@
 import React from 'react';
 import { User, Lock, LogIn } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -48,9 +49,9 @@ const Login = () => {
 
         <p className='mt-6 text-sm text-center text-gray-300'>
           Don't have an account?{' '}
-          <a href='#' className='text-yellow-300 hover:underline'>
+          <Link to={'/signup'} className='text-yellow-300 hover:underline'>
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -1,15 +1,16 @@
 import React from 'react'
 
-const GenderCheckBox = () => {
+const GenderCheckBox = ({register}) => {
   return (
     <div className='flex'>
 <div className='form-control'>
     <label className='label gap-2 cursor-pointer' >
         <span className='label-text'>Male</span>
         <input
-            type='checkbox'
+            type='radio'
             className='checkbox border-slate-900'
-          
+            value='male'
+            {...register('gender')}
         />
     </label>
 </div>
@@ -17,11 +18,12 @@ const GenderCheckBox = () => {
     <label className='label gap-2 cursor-pointer'>
         <span className='label-text'>Female</span>
         <input
-            type='checkbox'
+             type='radio'
             className='checkbox border-slate-900'
-         
+            value='female'
+            {...register('gender')}
         />
-    </label>
+    </label>  
 </div>
 </div>
   )

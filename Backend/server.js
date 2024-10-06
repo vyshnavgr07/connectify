@@ -2,6 +2,7 @@ import express from "express"
 const app=express();
 import env from 'dotenv'
 import morgan from "morgan";
+import cors from 'cors';
 env.config()
 const port=process.env.PORT
 import dbConnect from "./db/dbConnection.js";
@@ -12,6 +13,7 @@ import cookieParser from "cookie-parser";
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan('dev'))
+app.use(cors())
 app.use("/api/auth",authRouter)
 app.use("/api/messages",messageRouter)
 app.use("/api/users",userRoutes)
