@@ -1,6 +1,7 @@
 import User from "../modal/userModal.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
+
 export const signUp = async (req, res) => {
   try {
     const { fullName, username, password, gender } = req.body;
@@ -20,12 +21,13 @@ export const signUp = async (req, res) => {
     });
 
     if (newUser) {
-        generateToken(newUser._id,res)
+      const token=generateToken(newUser._id,res)
       await newUser.save();
 
       return res.status(201).json({
         message: "succesfully created",
         newUser,
+        token
       });
     } else {
       return res.status(400).json({
@@ -44,19 +46,26 @@ export const signUp = async (req, res) => {
 export const login=async(req,res)=>{
     try {
         const {username,password}=req.body;
+  
         const user=await User.findOne({username});
+        if(!user){
+          return res.status(400).json({
+            error: "invalid user credential",
+          });
+        }
         const isValid=await bcrypt.compare(password,user.password || "")
-        if(!user || !isValid){
+        if(!isValid){
             return res.status(400).json({
                 error: "invalid user credential",
               });
         }
-        generateToken(user._id,res)
+     const token=generateToken(user._id,res)
         res.status(200).json({
           _id:user._id,
           fullName:user.fullName,
           username:user.username,
-          profilepic:user.profilepic        })
+          profilepic:user.profilepic ,
+           token     })
     } catch (error) {
         console.log(error, "err");
         return res.status(500).json({

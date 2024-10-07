@@ -1,8 +1,15 @@
 import React from 'react';
 import { User, Lock, LogIn } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {useForm} from 'react-hook-form'
+import useLogin from '../../hooks/useLogin';
 
 const Login = () => {
+  const {register,handleSubmit,formState:{errors}}=useForm();
+ const {loading,login}=useLogin()
+  const onSubmit=async(data)=>{
+  await login(data)
+  }
   return (
     <div className='flex flex-col items-center justify-center min-h-screen '>
       <div className='w-full max-w-md p-8 rounded-xl shadow-2xl bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg'>
@@ -10,7 +17,7 @@ const Login = () => {
           Welcome to <span className='text-yellow-300'>Connectify</span>
         </h1>
 
-        <form className='space-y-6'>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div className='relative'>
             <label className='text-sm font-medium text-gray-200 block mb-2'>
               Username
@@ -21,7 +28,9 @@ const Login = () => {
                 type='text'
                 placeholder='Enter username'
                 className='w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white bg-opacity-20 text-white placeholder-gray-300'
+                {...register('username',{required:"username required"})}
               />
+              {errors.username?<p className='text-4xl text-red-700'>{errors.username.message}</p>:<p></p>}
             </div>
           </div>
 
@@ -35,12 +44,17 @@ const Login = () => {
                 type='password'
                 placeholder='Enter Password'
                 className='w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white bg-opacity-20 text-white placeholder-gray-300'
-              />
+                {...register('password',{required:"Password required"})}
+           />
+            {errors.password?<p className='text-4xl text-red-700'>{errors.password.message}</p>:<p></p>}
             </div>
           </div>
 
           <div>
-            <button className='w-full px-4 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center'>
+            
+            <button
+            type='submit'
+             className='w-full px-4 py-2 text-white font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center'>
               <LogIn className='mr-2' size={18} />
               Sign In
             </button>

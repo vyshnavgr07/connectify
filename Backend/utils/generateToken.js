@@ -7,11 +7,17 @@ const generateToken=(userId,res)=>{
         expiresIn:'15d'
     })
 
+
+
     res.cookie("jwt",token,{
     maxAge:15*24*60*1000,
     httpOnly:true,
-    sameSite:"strict"
+    sameSite:"none",
+    secure: process.env.NODE_ENV === "production",
+    
     })
+
+    return token
 }
 
 export default generateToken;

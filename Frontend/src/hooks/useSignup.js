@@ -15,7 +15,7 @@ if(!userData){
     throw new Error(data.error)
 }
 localStorage.setItem('user', JSON.stringify(userData));
-
+localStorage.setItem("token",response.data.token)
 setAuthUser(userData)
 } catch (error) {
   console.log(error)  
