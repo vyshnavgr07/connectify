@@ -1,8 +1,9 @@
 import  jwt    from  'jsonwebtoken'
-const  secret=process.env.JWT_SECRET
+
 
 const verifyToken=async(req,res,next)=>{
     const authHeader=req.headers.authorization;
+
 if(authHeader===undefined){
      return   res.status(401).json({
             status:'failed',
@@ -11,7 +12,8 @@ if(authHeader===undefined){
     }
 const token=authHeader.split(" ")[1]
 
-    jwt.verify(token,secret,(err,decoded)=>{
+
+    jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
      if(err){
         console.log(err,"error")
       return  res.status(401).json({
@@ -19,7 +21,7 @@ const token=authHeader.split(" ")[1]
             message:'token not provoded'
         })
      }else{
-        req.decoded=decoded;
+        req.user=decoded;
         next()
      }
     })

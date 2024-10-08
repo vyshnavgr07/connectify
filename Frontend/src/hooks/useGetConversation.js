@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast";
+import api from "../api/axiosInterceptor";
 
 const useGetConversation = () => {
 const [loading,setLoading]=useState(false);
@@ -10,14 +11,12 @@ useEffect(()=>{
 const getConversation=async()=>{
     setLoading(true)
     try {
-console.log(token,"tokennn")
-        const response=await axios.get('http://localhost:4444/api/users')
-        console.log(response,"ress")
-        if(response.status===200){
+const response=await api.get('users')
+if(response.status===200){
          setConversation(response.data)
         }
     } catch (error) {
-        toast.error(error.message)
+        console.log(error,"err in get conversation hook")
     }finally{
 setLoading(false)
     }

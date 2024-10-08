@@ -3,16 +3,16 @@ import Conversation from './Conversation'
 import useGetConversation from '../../hooks/useGetConversation'
 
 const Conversations = () => {
- const {loading,conversation}= useGetConversation();
- console.log(conversation,"conversatinnnn")
-  return (
+ const {loading,conversation,idx}= useGetConversation();
+return (
     <div className='py-2 flex flex-col overflow-auto'>
-<Conversation/>
-<Conversation/>
-<Conversation/>
-<Conversation/>
-<Conversation/>
-<Conversation/>
+{conversation?.map((con)=>(
+  <Conversation
+  key={con._id}
+  conversation={con}
+  lastIdx={idx === conversation.length - 1}
+   />
+))}
     </div>
   )
 }
