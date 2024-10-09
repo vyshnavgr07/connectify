@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton'
 
 const Sidebar = () => {
   return (
-    <div className='overflow-scroll'>
+    <div className='overflow-scroll w-[400px] mt-3 border-r'>
         <Search/>
         <div className='divider px-3 '></div>
         <Conversations/>

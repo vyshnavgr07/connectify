@@ -1,17 +1,30 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import io from 'socket.io-client';
 import { useAuthContext } from './AuthContext';
 
 export const socketContext = createContext();
 
+
+export const useSocketContext=()=>{
+    return useContext(socketContext)
+}
+
+
+
 export const SocketContextProvider = ({ children }) => {
-    const [socketss, setSocketss] = useState(null);
-    const [onlineUser, setOnlineUser] = useState([]);
+    const [socket, setSocket] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const { authUser } = useAuthContext();
 
     useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:4444");
+            const socket = io("http://localhost:4444",{
+                query:{
+                    userId:authUser._id
+                }
+            });
+
+
             socket.on('connect', () => {
                 console.log('Connected to the server, socket id:', socket.id);
             });
@@ -20,22 +33,32 @@ export const SocketContextProvider = ({ children }) => {
                 console.error('Connection error:', err);
             });
 
-            socket.on('disconnect', (reason) => {
+            socket.on('disconnect',(reason) => {
                 console.log('Disconnected:', reason);
             });
 
-            setSocketss(socket);
-            return () => socket.close();
+            setSocket(socket);
+
+           socket.on("getOnlineUsers",(users)=>{
+            console.log(users ,"userId in frontend")
+            setOnlineUsers(users)
+           })
+
+
+            return () =>{
+            socket.disconnect()
+             }
+
         } else {
-            if (socketss) {
-                socketss.close();
-                setSocketss(null);
+            if (socket) {
+                socket.disconnect();
+                setSocket(null);
             }
         }
-    }, [authUser]); // Dependency on authUser
+    }, [authUser]); 
 
     return (
-        <socketContext.Provider value={{ socketss, onlineUser }}>
+        <socketContext.Provider value={{socket, onlineUsers }}>
             {children}
         </socketContext.Provider>
     );

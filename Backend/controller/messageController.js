@@ -1,5 +1,6 @@
 import Conversation from "../modal/conversationModal.js";
 import Message from "../modal/messageModal.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 
 export const sendMessage=async(req,res)=>{
@@ -25,8 +26,14 @@ if(newMessage){
     conversation.messages.push(newMessage._id)
 }
 
-await conversation.save();
-await newMessage.save();
+await Promise.all([conversation.save(),newMessage.save()]);
+
+const receiverSocketId=getReceiverSocketId(receiverId)
+
+if(receiverSocketId){
+    io.to(receiverSocketId).emit("newMessage",newMessage)
+   
+}
 
 return res.status(201).json(newMessage)
 
