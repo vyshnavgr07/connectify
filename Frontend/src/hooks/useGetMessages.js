@@ -11,8 +11,7 @@ useEffect(()=>{
 const getMessage=async()=>{
     setLoading(true)
     try {
-        console.log(selectedConversation._id,"iddd")
-        const response=await api.get(`messages/${selectedConversation._id}`)
+      const response=await api.get(`messages/${selectedConversation._id}`)
         setMessages(response.data)
         
     } catch (error) {

@@ -6,11 +6,8 @@ const Conversation = ({ conversation, lastIdx }) => {
   const { selectedConversation,setSelectedConversation } = useConversation();
  const isSelected =conversation?._id===selectedConversation?._id;
  const {onlineUsers}=useSocketContext()
- console.log(onlineUsers,"online users")
- console.log(conversation._id,"online users")
- console.log(onlineUsers?.includes(conversation._id))
- const isOnline=onlineUsers?.includes(conversation._id)
- console.log(isOnline,"status")
+const isOnline=onlineUsers?.includes(conversation._id)
+
 return (
     <>
       <div

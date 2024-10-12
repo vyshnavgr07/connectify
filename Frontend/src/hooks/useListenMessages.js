@@ -9,10 +9,9 @@ const {messages,setMessages} =useConversation();
 
 useEffect(()=>{
 socket?.on("newMessage",(newMessage)=>{
+setMessages([...messages,newMessage])
+},[messages,setMessages,socket])
 
-    setMessages([...messages,newMessage])
-})
-console.log(messages,"msg from socket hook")
 return ()=>socket?.off("newMessage")
 },[socket,setMessages,messages])
 }

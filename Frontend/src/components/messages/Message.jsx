@@ -3,15 +3,12 @@ import { useAuthContext } from '../../context/AuthContext'
 import useConversation from '../../zustand/useConversation'
 
 const Message = ({message}) => {
-  console.log(message,"message")
   const {authUser}=useAuthContext()
   const {selectedConversation} =useConversation()
   const fromMe=message?.senderId===authUser._id;
   const chatClassName=fromMe? 'chat-end':'chat-start';
   const bubbleBgColor=fromMe?'bg-blue-500':"";
-
-
-  function extractTime(createdAt) {
+function extractTime(createdAt) {
     if (!createdAt) return '';
   const date = new Date(createdAt);
 let hours = date.getHours();
