@@ -16,7 +16,7 @@ return ()=>setSelectedConversation(null);
 },[setSelectedConversation])
 
   return (
-    <div className='overflow-scroll mt-3   md:min-w-[450px] flex flex-col'>
+    <div className='overflow-scroll mt-3 w-full  md:min-w-[450px] flex flex-col'>
     {!selectedConversation?(<NochatContainer/>):(
             <>
             <div className='bg-slate-500 px-4 py-2 mb-2'>

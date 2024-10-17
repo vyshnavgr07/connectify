@@ -1,6 +1,7 @@
 import User from "../modal/userModal.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
+import { sendOtp } from "../utils/otp/sendOtp.js";
 
 export const signUp = async (req, res) => {
   try {
@@ -21,10 +22,10 @@ export const signUp = async (req, res) => {
     });
 
     if (newUser) {
-      const token=generateToken(newUser._id,res)
-      await newUser.save();
-
-      return res.status(201).json({
+    await newUser.save();
+    const otp=sendOtp(newUser)
+    
+    return res.status(201).json({
         message: "succesfully created",
         newUser,
         token
@@ -41,6 +42,7 @@ export const signUp = async (req, res) => {
     });
   }
 };
+
 
 
 export const login=async(req,res)=>{
