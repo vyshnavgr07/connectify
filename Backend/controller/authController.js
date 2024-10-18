@@ -2,6 +2,7 @@ import User from "../modal/userModal.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import  sendOtp from "../utils/otp/sendOtp.js";
+import verifyOtp from '../utils/otp/verifyOtp.js'
 
 // export const signUp = async (req, res) => {
 //   try {
@@ -94,6 +95,25 @@ export const signUp = async (req, res) => {
   }
 };
 
+
+export const otpVerify=async(req,res)=>{
+try {
+  const {email,otp}=req.body;
+ const response=await verifyOtp(email,otp)
+  if(response.status==200){
+   const user=await User.findOneAndUpdate({email},{$set:{isVarified:true}},{new:true})
+   return res.status(200).json({
+    message: "user verified succesfully",
+    user
+  });
+
+
+  }
+  console.log(response)
+} catch (error) {
+  console.log(error,'errr')
+}
+}
 
 
 

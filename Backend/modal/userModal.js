@@ -28,7 +28,11 @@ fullName:{
     isVarified:{
         type:Boolean,
         default:false
-    }
+    },
+    expirationDate: {
+        type: Date,
+        default: () => Date.now() + 10 * 60 * 1000,
+      },
 },{timestamps:true})
 
 
