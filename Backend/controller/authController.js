@@ -1,35 +1,86 @@
 import User from "../modal/userModal.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
-import { sendOtp } from "../utils/otp/sendOtp.js";
+import  sendOtp from "../utils/otp/sendOtp.js";
+
+// export const signUp = async (req, res) => {
+//   try {
+//     const { fullName, username, password, gender } = req.body;
+//     const user = await User.findOne({ username });
+//     if (user) {
+//       return res.status(400).json({
+//         error: "Username already exist",
+//       });
+//     }
+//     const salt = await bcrypt.genSalt(10);
+//     const hash = await bcrypt.hash(password, salt);
+//     const newUser = new User({
+//       fullName,
+//       username,
+//       gender,
+//       password: hash,
+//     });
+
+//     if (newUser) {
+//     await newUser.save();
+//     const otp=sendOtp(newUser)
+    
+//     return res.status(201).json({
+//         message: "succesfully created",
+//         newUser,
+//         token
+//       });
+//     } else {
+//       return res.status(400).json({
+//         error: "invalid user data",
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error, "err");
+//     return res.status(500).json({
+//       error: "internal server error",
+//     });
+//   }
+// };
+
+
 
 export const signUp = async (req, res) => {
   try {
-    const { fullName, username, password, gender } = req.body;
-    const user = await User.findOne({ username });
+    const { fullName, email, password, gender } = req.body;
+    const user = await User.findOne({ email});
+    console.log(user,"userr")
     if (user) {
-      return res.status(400).json({
-        error: "Username already exist",
-      });
+      if(user.isVarified){
+        return res.status(400).json({
+          error: "Username already exist",
+        })
+      }else{
+        const otp=await sendOtp(user)
+        return res.status(otp.status).json({
+            message:otp.message,
+          
+       });
+      }
+    
     }
-    const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const newUser = new User({
       fullName,
-      username,
+      email,
       gender,
       password: hash,
     });
 
     if (newUser) {
     await newUser.save();
-    const otp=sendOtp(newUser)
-    
-    return res.status(201).json({
-        message: "succesfully created",
+    const otp=await sendOtp(newUser)
+    console.log(otp,"otpptpt")
+ return res.status(otp.status).json({
+        message:otp.message,
         newUser,
-        token
-      });
+   });
     } else {
       return res.status(400).json({
         error: "invalid user data",
@@ -42,6 +93,11 @@ export const signUp = async (req, res) => {
     });
   }
 };
+
+
+
+
+
 
 
 

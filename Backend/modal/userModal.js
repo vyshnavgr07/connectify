@@ -6,7 +6,7 @@ fullName:{
     type:String,
     required:true,
     },
-    username:{
+   email:{
         type:String,
         required:true,
         unique:true         
@@ -24,6 +24,10 @@ fullName:{
     profilepicture:{
         type:String,
         default:"",
+    },
+    isVarified:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true})
 
