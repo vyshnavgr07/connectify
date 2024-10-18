@@ -123,9 +123,9 @@ try {
 
 export const login=async(req,res)=>{
     try {
-        const {username,password}=req.body;
+        const {email,password}=req.body;
   
-        const user=await User.findOne({username});
+        const user=await User.findOne({email});
         if(!user){
           return res.status(400).json({
             error: "invalid user credential",
@@ -141,7 +141,7 @@ export const login=async(req,res)=>{
         res.status(200).json({
           _id:user._id,
           fullName:user.fullName,
-          username:user.username,
+          email:user.email,
           profilepic:user.profilepic ,
            token     })
     } catch (error) {

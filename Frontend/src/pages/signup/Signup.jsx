@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GenderCheckBox from './GenderCheckBox';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useSignup from '../../hooks/useSignup';
+import OTPModal from '../../components/modals/OtpModal';
+
 const Signup = () => {
   const { register, handleSubmit } = useForm();
-
+const[isModal,setiSmodal]=useState(true)
 const {loading,signupp}=useSignup()
 const onSubmit = async(data) => {
   sessionStorage.setItem('user', JSON.stringify(data));
@@ -13,7 +15,7 @@ const onSubmit = async(data) => {
    await signupp(data)
 
   };
-
+console.log('sucessssssss')
   return (
     <div className='flex flex-col items-center justify-center min-w-96 mt-10 mx-auto'>
       <div className='w-[450px] p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
@@ -36,13 +38,13 @@ const onSubmit = async(data) => {
 
           <div>
             <label className='label p-2 '>
-              <span className='text-base label-text'>Username</span>
+              <span className='text-base label-text'>email</span>
             </label>
             <input
               type='text'
-              placeholder='johndoe'
+              placeholder='johndoe@gmail.com'
               className='w-full input input-bordered h-10'
-              {...register('username')}
+              {...register('email')}
             />
           </div>
 
@@ -74,6 +76,7 @@ const onSubmit = async(data) => {
           </div>
         </form>
       </div>
+
     </div>
   );
 };
