@@ -7,7 +7,7 @@ import { useAuthContext } from '../../context/AuthContext';
 const Conversations = () => {
  const {loading,conversation,idx}= useGetConversation();
  const {authUser}=useAuthContext()
-const excludedUser=conversation.filter((x)=>x._id!=authUser._id)
+ const excludedUser=conversation.filter((x)=>x._id!=authUser.user._id)
  
 return (
 <div className='py-2 flex flex-col overflow-auto'>
