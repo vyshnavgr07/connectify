@@ -5,7 +5,7 @@ import Home from './pages/home/Home'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { useAuthContext } from './context/AuthContext'
-import OtpModal from './components/modals/OtpModal'
+
 
 
 function App() {
