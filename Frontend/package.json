@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -36,5 +36,11 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "vite": "^5.4.8"
-  }
+  },
+  "builds": [
+    {
+      "src": "Frontend/package.json",
+      "use": "@vercel/node"
+    }
+  ]
 }
