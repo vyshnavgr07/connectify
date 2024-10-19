@@ -30,7 +30,7 @@ const Login = () => {
                 className='w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white bg-opacity-20 text-white placeholder-gray-300'
                 {...register('email',{required:"username required"})}
               />
-              {errors.username?<p className='text-4xl text-red-700'>{errors.username.message}</p>:<p></p>}
+              {errors.email?<p className='text-4xl text-red-700'>{errors.email.message}</p>:<p></p>}
             </div>
           </div>
 

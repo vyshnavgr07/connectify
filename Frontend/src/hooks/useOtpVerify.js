@@ -12,7 +12,7 @@ try {
   const response=await api.post("auth/verify",data)
     console.log(response,'respo in otpp')
        if(response.status===200){
-            localStorage.setItem("user",JSON.stringify(response.data))
+            localStorage.setItem("user",JSON.stringify(response.data.user))
             localStorage.setItem("token",response.data.token)
             setAuthUser(response.data)
         }

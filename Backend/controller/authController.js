@@ -81,16 +81,31 @@ try {
 export const login=async(req,res)=>{
     try {
         const {email,password}=req.body;
-  
+        console.log(email,'emaill')
         const user=await User.findOne({email});
-        if(!user){
-          if(!user.isVarified){
+        console.log(user,"usertrsss")
+     
+        if(user){
+          if(!user.isVarified){ 
             return res.status(400).json({
               error: "invalid user credential",
             });
           }
          
         }
+
+           if(!user){
+                   return res.status(400).json({
+              error: "invalid user credential",
+            });}
+
+            if(!user.isVarified){
+              return res.status(400).json({
+         error: "invalid user credential",
+       });}
+
+
+
         const isValid=await bcrypt.compare(password,user.password || "")
         if(!isValid){
             return res.status(400).json({
@@ -98,12 +113,15 @@ export const login=async(req,res)=>{
               });
         }
      const token=generateToken(user._id,res)
-        res.status(200).json({
-          _id:user._id,
-          fullName:user.fullName,
-          email:user.email,
-          profilepic:user.profilepic ,
-           token     })
+
+     const users={_id:user._id,
+     fullName:user.fullName,
+     email:user.email,
+     profilepic:user.profilepic}
+
+        
+     
+     res.status(200).json({token,users})
     } catch (error) {
         console.log(error, "err");
         return res.status(500).json({

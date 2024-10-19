@@ -8,17 +8,18 @@ import api from "../api/axiosInterceptor";
 
 function useLogin(){
 const [loading,setLoading]=useState(false);
-const {setAuthUser}=useAuthContext()
+const {setAuthUser}=useAuthContext();
+
 const login=async(data)=>{
 setLoading(true)
 try {
 const response=await api.post("auth/login",data)
-
+console.log(response,"mydbgsbsgbs")
 
 if(response.status===200){
-    localStorage.setItem("user",JSON.stringify(response.data))
+    localStorage.setItem("user",JSON.stringify(response.data.users))
     localStorage.setItem("token",response.data.token)
-    setAuthUser(response.data)
+    setAuthUser(response.data.users)
 }
 
 } catch (error) {
