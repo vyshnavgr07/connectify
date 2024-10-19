@@ -12,7 +12,7 @@ const[isModal,setiSmodal]=useState(false)
 const [email,setEmail]=useState(null)
 const {loading,signupp}=useSignup()
 const onSubmit = async(data) => {
-setEmail(data.email)
+setEmail(data.email) 
    const response=await signupp(data)
    console.log(response,"respoo in signupp")
     if(response.status==201){
