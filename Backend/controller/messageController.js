@@ -29,9 +29,10 @@ if(newMessage){
 await Promise.all([conversation.save(),newMessage.save()]);
 
 const receiverSocketId=getReceiverSocketId(receiverId)
-
+console.log('receiver',receiverSocketId)
 if(receiverSocketId){
     io.to(receiverSocketId).emit("newMessage",newMessage)
+    console.log('receiverSocketId',receiverSocketId)
    
 }
 

@@ -21,8 +21,8 @@ useEffect(() => {
                 query:{
                     userId:authUser?._id
                 }
-            });
-
+});
+   
 
             socket.on('connect', () => {
                 console.log('Connected to the server, socket id:', socket.id);

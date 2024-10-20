@@ -23,7 +23,7 @@ fullName:{
     },
     profilepicture:{
         type:String,
-        default:"",
+        default:null,
     },
     isVarified:{
         type:Boolean,
