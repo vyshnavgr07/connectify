@@ -6,6 +6,7 @@ import api from "../api/axiosInterceptor"
 const useSignup = () => {
   const[loading,setLoading]=useState(false)
  const signupp=async(data)=>{
+  console.log('api',api)
 try {
 const response=await api.post('auth/signup',data)
 if(response.status==201){
