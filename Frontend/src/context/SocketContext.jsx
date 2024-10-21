@@ -17,7 +17,7 @@ export const SocketContextProvider = ({ children }) => {
     const { authUser } = useAuthContext();
 useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:4444",{
+            const socket = io("https://connectify-1swz.onrender.com",{
                 query:{
                     userId:authUser?._id
                 }
