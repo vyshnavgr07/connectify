@@ -16,6 +16,9 @@ fullName:{
         required:true,
         minlength:6
     },
+    status:{
+        type:String,         
+        },
     gender:{
         type:String,
         required:true,

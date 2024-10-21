@@ -17,7 +17,7 @@ export const updateProfile = async (req, res) => {
     try {
         const data = req.body;
         const id = req.user.userId; // Assuming you have middleware that sets req.user
-        const updatedUser = await User.findByIdAndUpdate(id, data, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, data, { new: true }).select('-password -expirationDate -createdAt -__v -updatedAt');
 
         if (!updatedUser) {
             return res.status(404).json({ error: "User not found" });

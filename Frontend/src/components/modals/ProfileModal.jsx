@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { X, Edit3, Save } from 'lucide-react'; // Import Save icon
 import { useAuthContext } from '../../context/AuthContext';
 import { useForm } from 'react-hook-form';
-
+import useUpdateProfile from '../../hooks/useUpdateProfile';
 const ProfileModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 const { authUser } = useAuthContext();
-console.log(authUser,'authuserr')
+const {loading,update} =useUpdateProfile()
 const fileInputRef = React.useRef(null);
   const [isEditingFullName, setIsEditingFullName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isEditingAbout, setIsEditingAbout] = useState(false);
   const [profilePic,setProfilePic]=useState(null)
+  const [image,setImage]=useState(null)
   useEffect(() => {
     const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(authUser.fullName)}&uppercase=true&background=random&font-size=0.33&length=2&bold=true`;
     setProfilePic(authUser?.profilepicture || avatarUrl);
@@ -20,6 +21,7 @@ const fileInputRef = React.useRef(null);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setImage(file)
       const imageUrl = URL.createObjectURL(file);
       setProfilePic(imageUrl);
     }
@@ -41,10 +43,11 @@ const fileInputRef = React.useRef(null);
   };
 
 
-  const onSubmit = (data) => {
-    // onSave(data);
-    console.log(data,'dataaa')
-    onClose();    
+  const onSubmit = async(data) => {
+  const updatedData = {...data};
+  const response=await update(updatedData)
+  console.log(response,'responsee')
+  onClose();    
   };
 
   return (
