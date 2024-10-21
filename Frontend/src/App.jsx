@@ -10,7 +10,7 @@ import { useAuthContext } from './context/AuthContext'
 
 function App() {
  const {authUser}=useAuthContext()
- console.log(import.meta.env.VITE_BASEURL, "clglglglgllglg");
+
 
   return (
   <div className='h-screen w-full overflow-hidden'>
