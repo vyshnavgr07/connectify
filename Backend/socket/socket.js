@@ -7,7 +7,7 @@ const server=http.createServer(app);
 
 const io= new Server(server,{
     cors:{
-        origin:["http://localhost:5173","https://vercel.com/vyshnavs-projects-301b3cd0/connectify/H3feLGdnHtvMRWoBfZfombyfgcCC"],
+        origin:["http://localhost:5173","https://connectifychat.vercel.app/"],
         methods:["GET","POST"]
     }
 })
