@@ -83,9 +83,8 @@ try {
 export const login=async(req,res)=>{
     try {
         const {email,password}=req.body;
-        console.log(email,'emaill')
         const user=await User.findOne({email});
-        console.log(user,"usertrsss")
+       
      
         if(user){
           if(!user.isVarified){ 
