@@ -84,9 +84,7 @@ export const login=async(req,res)=>{
     try {
         const {email,password}=req.body;
         const user=await User.findOne({email});
-       
-     
-        if(user){
+       if(user){
           if(!user.isVarified){ 
             return res.status(400).json({
               error: "invalid user credential",
