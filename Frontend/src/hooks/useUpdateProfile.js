@@ -1,10 +1,11 @@
 import { useState } from "react"
 import api from "../api/axiosInterceptor";
+import { useAuthContext } from "../context/AuthContext";
 
 
 const useUpdateProfile = () => {
   const[loading,setLoading] =useState(false);
-  
+  const {setAuthUser}=useAuthContext();
   const update=async(data)=>{
     setLoading(true)
     try {
@@ -13,6 +14,7 @@ const useUpdateProfile = () => {
          if(response.status==200){
           const user=response.data
           localStorage.setItem('user', JSON.stringify(user));
+          setAuthUser(user)
           return user
          }else{
           throw new Error('updation failed')
