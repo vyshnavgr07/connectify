@@ -26,20 +26,22 @@ const Search = () => {
    }
 	}
   return (
-<form    onSubmit={handleSubmit}
- className='flex items-center gap-2'>
-			<input
-				type='text'
-				placeholder='Search…'
-				className='input input-bordered rounded-full'
-				value={searched}
-				onChange={(e)=>setSearched(e.target.value)}
-			
-			/>
-			<button type='submit' className='btn btn-circle bg-sky-500 text-white'>
-         <SearchIcon/>
-			</button>
-		</form>
+<form onSubmit={handleSubmit} className="flex items-center gap-2 w-full sm:w-auto">
+  <input
+    type="text"
+    placeholder="Search…"
+    className="input input-bordered rounded-full w-full sm:w-auto"
+    value={searched}
+    onChange={(e) => setSearched(e.target.value)}
+  />
+  <button
+    type="submit"
+    className="btn btn-circle bg-sky-500 text-white p-2 sm:p-2"
+  >
+    <SearchIcon />
+  </button>
+</form>
+
   )
 }
 

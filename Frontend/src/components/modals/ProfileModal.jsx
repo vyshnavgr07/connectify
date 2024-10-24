@@ -31,7 +31,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300">
+    <div className="fixed z-20 inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300">
       <div className="bg-gray-300 h-[600px] rounded-xl w-full max-w-md p-8 relative shadow-2xl transform transition-all duration-300 scale-100">
         <button
           onClick={onClose}
@@ -116,20 +116,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
                 disabled={!isEditingEmail}
               />
               {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-              <button
-                type="button"
-                // onClick={() => {
-                //   if (isEditingEmail) {
-                //     onSubmit({ email: document.getElementsByName('email')[0].value });
-                //   }
-                //   setIsEditingEmail(!isEditingEmail);
-                // }}
-                disabled
-                className="absolute right-2 top-8 text-gray-400 hover:text-blue-500 transition-colors"
-              >
-                {isEditingEmail ? <Save size={20} /> : <Edit3 size={20} />}
-              </button>
-            </div>
+             </div>
           </div>
 
           <button
@@ -140,20 +127,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
             {loading ? 'Saving...' : 'Save All Changes'}
           </button>
         </form>
-
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <button
-            onClick={onClose}
-            className="w-full py-3 text-red-600 font-medium hover:bg-red-50 rounded-lg transition-colors"
-          >
-            Log out
-          </button>
-
-          <p className="text-sm text-gray-500 text-center mt-4">
-            Chat history on this computer will be cleared when you log out.
-          </p>
-        </div>
-      </div>
+         </div>
     </div>
   );
 };
