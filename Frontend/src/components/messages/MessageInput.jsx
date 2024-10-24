@@ -12,7 +12,7 @@ function onSubmit(data){
 reset()
 }
 return (
-<form className='px-4 my-3' onClick={handleSubmit(onSubmit)}>
+<form className='px-4 my-3' onSubmit={handleSubmit(onSubmit)}>
 <div className='w-full relative'>
 <input 
 type='text' 

@@ -1,19 +1,16 @@
-import React, { useMemo,memo } from 'react'
+import React from 'react'
 import { useAuthContext } from '../../context/AuthContext'
-import useConversation from '../../zustand/useConversation'
+
 
 const Message = ({message}) => {
-  const {authUser}=useAuthContext()
-  const {selectedConversation} =useConversation()
-  console.log(message?.senderId,'auth')
-  // const fromMe=message?.senderId===authUser._id;
-const fromMe = useMemo(() => {
-    const isFromMe = message?.senderId === authUser._id;
-    return isFromMe;
-  }, [message?.senderId, authUser._id]);
-  const chatClassName=fromMe?'chat-end':'chat-start';
+const {authUser}=useAuthContext()
+console.log(message?.senderId,'sender id')
+  console.log(authUser._id,'auth user id')
+  const fromMe=message.senderId===authUser._id;
+   const chatClassName=fromMe?'chat-start':'chat-end';
   console.log(chatClassName)
   const bubbleBgColor=fromMe?'bg-blue-500':"";
+  
 function extractTime(createdAt) {
     if (!createdAt) return '';
   const date = new Date(createdAt);
@@ -45,7 +42,7 @@ return `${hours}:${formattedMinutes} ${ampm}`;
   )
 }
 
-export default memo(Message)
+export default Message
 
 
 

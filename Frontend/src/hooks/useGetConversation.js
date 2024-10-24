@@ -11,7 +11,7 @@ useEffect(() => {
     const getConversation = async () => {
       setLoading(true);
       try {
-        const response = await api.get('users'); // Replace 'users' with your API endpoint
+        const response = await api.get('users'); 
         if (response.status === 200) {
           setConversation(response.data);
         }
@@ -22,14 +22,14 @@ useEffect(() => {
       }
     };
 
-    getConversation(); // Initial fetch
+    getConversation(); 
 
     const intervalId = setInterval(() => {
-      getConversation(); // Fetch conversations periodically
-    }, 300000); // 5 minutes
+      getConversation(); 
+    }, 300000); 
 
     return () => {
-      clearInterval(intervalId); // Cleanup on unmount
+      clearInterval(intervalId); 
     };
   }, []); 
 
